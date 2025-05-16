@@ -3,15 +3,15 @@ import { GOOGLE_ADSENSE, GOOGLE_SEARCH, NAVER_SEARCH } from "./env";
 
 export const META_DATA: Metadata = {
   title: {
-    default: `TITLE`,
-    template: `TITLE | %s`,
+    default: `플로우션 | Flowtion`,
+    template: `플로우션 | %s`,
   },
-  description: "description",
-  openGraph: {
-    title: "title",
-    description: "description",
-    images: ["/meta/og.png"],
-  },
+  description: "동영상 자동 재생 노션 위젯",
+  // openGraph: {
+  //   title: "title",
+  //   description: "description",
+  //   images: ["/meta/og.png"],
+  // },
   icons: {
     icon: "/meta/favicon.ico",
     apple: "/meta/favicon.ico",

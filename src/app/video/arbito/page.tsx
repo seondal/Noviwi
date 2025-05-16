@@ -4,7 +4,7 @@ export default function Page() {
   const videoSrc = "/assets/arbito.mp4";
 
   return (
-    <Link href={"/"}>
+    <Link href={"/"} target="_blank">
       <video
         src={videoSrc}
         autoPlay
