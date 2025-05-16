@@ -1,6 +1,4 @@
-import "@picocss/pico";
 import "@/style/globals.css";
-import "@/style/theme.css";
 
 import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -20,13 +18,15 @@ export default function RootLayout({
         <Script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${GOOGLE_ADSENSE}`}
-          crossOrigin="anonymous"></Script>
+          crossOrigin="anonymous"
+        ></Script>
       </head>
       <body>
-        <header></header>
-        <main className="">{children}</main>
+        {/* <header></header> */}
+        {/* <main className="">{children}</main> */}
+        {children}
         <GoogleAnalytics gaId={GOOGLE_ANALYITICS} />
-        <footer className="text-center p-4"></footer>
+        {/* <footer className="text-center p-4"></footer> */}
       </body>
     </html>
   );
