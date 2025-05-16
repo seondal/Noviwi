@@ -4,12 +4,11 @@ export default function Page() {
   return (
     <video
       src={videoSrc}
-      controls
       autoPlay
       loop
       muted
       playsInline
-      className="w-full"
+      className="w-full overflow-hidden"
     >
       Error
     </video>
