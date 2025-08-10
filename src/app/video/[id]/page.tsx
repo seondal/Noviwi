@@ -14,23 +14,23 @@ export default async function Page({
   const autoPlay = parseBool(searchParams?.autoplay, true);
   const loop = parseBool(searchParams?.loop, true);
   const muted = parseBool(searchParams?.muted, true);
-  const controls = parseBool(searchParams?.muted, false);
+  const controls = parseBool(searchParams?.controls, false);
 
   const videoSrc = `/assets/${id}.mp4`;
 
   return (
-    // <a href="/" target="_blank" rel="noopener noreferrer">
-    <video
-      src={videoSrc}
-      autoPlay={autoPlay}
-      loop={loop}
-      muted={muted}
-      playsInline
-      controls={controls}
-      // preload="metadata"
-      className="w-full overflow-hidden">
-      Your browser does not support the video tag.
-    </video>
-    // </a>
+    <a href="/" target="_blank" rel="noopener noreferrer">
+      <video
+        src={videoSrc}
+        autoPlay={autoPlay}
+        loop={loop}
+        muted={muted}
+        playsInline
+        controls={controls}
+        preload="metadata"
+        className="w-full overflow-hidden">
+        Your browser does not support the video tag.
+      </video>
+    </a>
   );
 }
