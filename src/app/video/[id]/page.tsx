@@ -1,4 +1,4 @@
-import fs from "fs";
+import videoList from "@/constants/videoList.json";
 
 export default async function Page({
   params: { id },
@@ -20,13 +20,7 @@ export default async function Page({
 
   const videoSrc = `/assets/${id}.mp4`;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE || ""}${videoSrc}`, {
-    method: "HEAD",
-    cache: "no-store",
-  });
-  console.log("🚀 ~ Page ~ res:", res);
-
-  if (!res.ok) {
+  if (!videoList.includes(id)) {
     return (
       <a href="/" target="_blank" rel="noopener noreferrer">
         <div className="flex flex-col w-full h-full items-center justify-center">
