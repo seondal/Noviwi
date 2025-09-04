@@ -1,4 +1,4 @@
-import fs from "fs";
+import videoList from "@/constants/videoList.json";
 
 export default async function Page({
   params: { id },
@@ -19,18 +19,17 @@ export default async function Page({
   const controls = parseBool(searchParams?.controls, false);
 
   const videoSrc = `/assets/${id}.mp4`;
-  const videoExists = fs.existsSync(videoSrc);
 
-  // if (!videoExists) {
-  //   return (
-  //     <a href="/" target="_blank" rel="noopener noreferrer">
-  //       <div className="flex flex-col w-full h-full items-center justify-center">
-  //         <h1>Noviwi</h1>
-  //         <h5>노션 비디오 위젯 제작</h5>
-  //       </div>
-  //     </a>
-  //   );
-  // }
+  if (!videoList.includes(id)) {
+    return (
+      <a href="/" target="_blank" rel="noopener noreferrer">
+        <div className="flex flex-col w-full h-full items-center justify-center">
+          <h1>Noviwi</h1>
+          <h5>노션 비디오 위젯 제작</h5>
+        </div>
+      </a>
+    );
+  }
 
   return (
     <a href="/" target="_blank" rel="noopener noreferrer">
