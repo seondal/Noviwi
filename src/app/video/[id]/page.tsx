@@ -24,6 +24,7 @@ export default async function Page({
     method: "HEAD",
     cache: "no-store",
   });
+  console.log("🚀 ~ Page ~ res:", res);
 
   if (!res.ok) {
     return (
