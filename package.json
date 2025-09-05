@@ -5,7 +5,7 @@
   "scripts": {
     "generate:videoList": "node scripts/generateVideoList.mjs",
     "dev": "npm run generate:videoList && next dev",
-    "build": "npm run generate:videoList && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
