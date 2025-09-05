@@ -18,18 +18,9 @@ export default async function Page({
   const muted = parseBool(searchParams?.muted, true);
   const controls = parseBool(searchParams?.controls, false);
 
-  const videoSrc = `/assets/${id}.mp4`;
-
-  if (!videoList.includes(id)) {
-    return (
-      <a href="/" target="_blank" rel="noopener noreferrer">
-        <div className="flex flex-col w-full h-full items-center justify-center">
-          <h1>Noviwi</h1>
-          <h5>노션 비디오 위젯 제작</h5>
-        </div>
-      </a>
-    );
-  }
+  const videoSrc = videoList.includes(id)
+    ? `/assets/${id}.mp4`
+    : `/assets/noviwi.mp4`;
 
   return (
     <a href="/" target="_blank" rel="noopener noreferrer">
