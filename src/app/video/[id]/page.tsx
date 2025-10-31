@@ -19,8 +19,12 @@ export default async function Page({
   const controls = parseBool(searchParams?.controls, false);
 
   const videoSrc = videoList.includes(id)
-    ? `/assets/${id}.mp4`
+    ? id.endsWith(".mov")
+      ? `/assets/${id}`
+      : `/assets/${id}.mp4`
     : `/assets/noviwi.mp4`;
+
+  console.log(videoSrc);
 
   return (
     <a href="/" target="_blank" rel="noopener noreferrer">
