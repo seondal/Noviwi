@@ -27,18 +27,16 @@ export default async function Page({
   console.log(videoSrc);
 
   return (
-    <a href="/" target="_blank" rel="noopener noreferrer">
-      <video
-        src={videoSrc}
-        autoPlay={autoPlay}
-        loop={loop}
-        muted={muted}
-        playsInline
-        controls={controls}
-        preload="metadata"
-        className="w-full overflow-hidden">
-        Your browser does not support the video tag.
-      </video>
-    </a>
+    <video
+      src={videoSrc}
+      autoPlay={autoPlay}
+      loop={loop}
+      muted={muted}
+      playsInline
+      controls={controls}
+      preload="metadata"
+      className="w-full overflow-hidden">
+      Your browser does not support the video tag.
+    </video>
   );
 }
