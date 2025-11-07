@@ -64,7 +64,7 @@ export default async function Page({
   });
 
   if (!res.ok) {
-    console.error("Failed to fetch Notion data:", res.statusText);
+    console.error("Failed to fetch Notion data:", res);
     return (
       <a href="/">
         <h1>문제가 발생했습니다. 오카방으로 문의주세요</h1>
