@@ -1,4 +1,11 @@
-import videoList from "@/constants/videoList.json";
+import { SITE } from "@/constants/env";
+
+interface OptionsT {
+  autoPlay: boolean;
+  loop: boolean;
+  muted: boolean;
+  controls: boolean;
+}
 
 export default async function Page({
   params: { id },
@@ -13,30 +20,74 @@ export default async function Page({
     return s === "true";
   };
 
-  const autoPlay = parseBool(searchParams?.autoplay, true);
-  const loop = parseBool(searchParams?.loop, true);
-  const muted = parseBool(searchParams?.muted, true);
-  const controls = parseBool(searchParams?.controls, false);
+  const options: OptionsT = {
+    autoPlay: parseBool(searchParams?.autoplay, true),
+    loop: parseBool(searchParams?.loop, true),
+    muted: parseBool(searchParams?.muted, true),
+    controls: parseBool(searchParams?.controls, false),
+  };
 
-  const videoSrc = videoList.includes(id)
-    ? id.endsWith(".mov")
-      ? `/assets/${id}`
-      : `/assets/${id}.mp4`
-    : `/assets/noviwi.mp4`;
+  function VideoComponent({
+    videoUrl,
+    options,
+  }: {
+    videoUrl: string;
+    options: OptionsT;
+  }) {
+    const { autoPlay, loop, muted, controls } = options;
 
-  console.log(videoSrc);
+    return (
+      <video
+        src={videoUrl}
+        autoPlay={autoPlay}
+        loop={loop}
+        muted={muted}
+        playsInline
+        controls={controls}
+        preload="metadata"
+        className="w-full overflow-hidden">
+        Your browser does not support the video tag.
+      </video>
+    );
+  }
 
+  if (id == "arbito") {
+    return (
+      <a href="/">
+        <VideoComponent videoUrl="/assets/arbito.mp4" options={options} />
+      </a>
+    );
+  }
+
+  const res = await fetch(`${SITE}/api/notion/${id}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch Notion data:", res.statusText);
+    return (
+      <a href="/">
+        <h1>문제가 발생했습니다. 오카방으로 문의주세요</h1>
+      </a>
+    );
+  }
+
+  const data = await res.json();
+
+  if (data.status !== "deployed") {
+    return (
+      <a href="/">
+        <VideoComponent videoUrl="/assets/noviwi.mp4" options={options} />
+      </a>
+    );
+  }
+
+  const videoUrl = data.videoUrl;
+  if (options.controls)
+    return <VideoComponent videoUrl={videoUrl} options={options} />;
   return (
-    <video
-      src={videoSrc}
-      autoPlay={autoPlay}
-      loop={loop}
-      muted={muted}
-      playsInline
-      controls={controls}
-      preload="metadata"
-      className="w-full overflow-hidden">
-      Your browser does not support the video tag.
-    </video>
+    <a href="/" target="_blank">
+      <VideoComponent videoUrl={videoUrl} options={options} />
+    </a>
   );
 }
