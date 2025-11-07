@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "generate:videoList": "node scripts/generateVideoList.mjs",
-    "dev": "npm run generate:videoList && next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

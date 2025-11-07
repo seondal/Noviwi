@@ -60,7 +60,8 @@ export default async function Page({
   }
 
   const res = await fetch(`${SITE}/api/notion/${id}`, {
-    cache: "no-store",
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
   });
 
   if (!res.ok) {

@@ -16,7 +16,6 @@ export async function GET(
   _request: Request,
   { params }: { params: { pageId: string } }
 ) {
-  console.log(NOTION.API_KEY);
   try {
     const pageId = params.pageId;
     const page = (await notion.pages.retrieve({
