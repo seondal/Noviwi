@@ -1,10 +1,9 @@
-import { NextResponse } from "next/server";
+import { Client } from "@notionhq/client";
 import {
-  Client,
   FilesPropertyItemObjectResponse,
   PageObjectResponse,
   SelectPropertyItemObjectResponse,
-} from "@notionhq/client";
+} from "@notionhq/client/build/src/api-endpoints";
 import { NOTION } from "@/constants/env";
 
 const notion = new Client({
@@ -12,12 +11,8 @@ const notion = new Client({
   notionVersion: NOTION.VERSION,
 });
 
-export async function GET(
-  _request: Request,
-  { params }: { params: { pageId: string } }
-) {
+export async function getNotionVideoData(pageId: string) {
   try {
-    const pageId = params.pageId;
     const page = (await notion.pages.retrieve({
       page_id: pageId,
     })) as PageObjectResponse;
@@ -33,19 +28,13 @@ export async function GET(
     const videoFile = videoProps.files[0];
     if (!(videoFile && "file" in videoFile && "url" in videoFile.file)) {
       console.error(`No Video File : ${pageId}`);
-      return NextResponse.json(
-        { error: "No video file found" },
-        { status: 404 }
-      );
+      console.error(page);
+      return 404;
     }
-    const videoUrl = videoFile.file.url;
 
-    return NextResponse.json({ status, videoUrl });
+    return { status, videoUrl: videoFile.file.url };
   } catch (error: any) {
     console.error("Notion API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch page", details: error.message },
-      { status: 500 }
-    );
+    return 500;
   }
 }

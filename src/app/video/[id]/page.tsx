@@ -1,4 +1,4 @@
-import { SITE } from "@/constants/env";
+import { getNotionVideoData } from "@/lib/notion";
 
 interface OptionsT {
   autoPlay: boolean;
@@ -44,7 +44,7 @@ export default async function Page({
         muted={muted}
         playsInline
         controls={controls}
-        preload="metadata"
+        preload="auto"
         className="w-full overflow-hidden">
         Your browser does not support the video tag.
       </video>
@@ -59,11 +59,9 @@ export default async function Page({
     );
   }
 
-  const res = await fetch(`${SITE}/api/notion/${id}`, {
-    cache: "no-store",
-  });
+  const res = await getNotionVideoData(id);
 
-  if (!res.ok) {
+  if (res === 500 || res === 404) {
     console.error("Failed to fetch Notion data:", res);
     return (
       <a href="/">
@@ -72,9 +70,7 @@ export default async function Page({
     );
   }
 
-  const data = await res.json();
-
-  if (data.status !== "deployed") {
+  if (res.status !== "deployed") {
     return (
       <a href="/">
         <VideoComponent videoUrl="/assets/noviwi.mp4" options={options} />
@@ -82,7 +78,7 @@ export default async function Page({
     );
   }
 
-  const videoUrl = data.videoUrl;
+  const videoUrl = res.videoUrl;
   if (options.controls)
     return <VideoComponent videoUrl={videoUrl} options={options} />;
   return (
