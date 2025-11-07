@@ -59,9 +59,9 @@ export default async function Page({
     );
   }
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_VERCEL_URL ? "" : SITE}/api/notion/${id}`
-  );
+  const res = await fetch(`${SITE}/api/notion/${id}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     console.error("Failed to fetch Notion data:", res);
