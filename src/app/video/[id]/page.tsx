@@ -59,10 +59,9 @@ export default async function Page({
     );
   }
 
-  const res = await fetch(`${SITE}/api/notion/${id}`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL ? "" : SITE}/api/notion/${id}`
+  );
 
   if (!res.ok) {
     console.error("Failed to fetch Notion data:", res);
