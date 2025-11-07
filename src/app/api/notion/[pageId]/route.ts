@@ -32,8 +32,11 @@ export async function GET(
     ] as FilesPropertyItemObjectResponse;
     const videoFile = videoProps.files[0];
     if (!(videoFile && "file" in videoFile && "url" in videoFile.file)) {
-      console.error(`No Video FIle : ${pageId}`);
-      return null;
+      console.error(`No Video File : ${pageId}`);
+      return NextResponse.json(
+        { error: "No video file found" },
+        { status: 404 }
+      );
     }
     const videoUrl = videoFile.file.url;
 
