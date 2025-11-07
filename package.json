@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "generate:videoList": "node scripts/generateVideoList.mjs",
-    "dev": "npm run generate:videoList && next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@next/third-parties": "^14.1.2",
+    "@notionhq/client": "^5.3.0",
     "@picocss/pico": "^2.0.6",
     "@vercel/analytics": "^1.2.2",
     "next": "14.1.1",

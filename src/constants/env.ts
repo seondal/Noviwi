@@ -6,3 +6,7 @@ export const GOOGLE_SEARCH = process.env.NEXT_PUBLIC_GOOGLE_SEARCH || "";
 export const DEVELOPER = process.env.NEXT_PUBLIC_DEVELOPER || "";
 
 export const SITE = process.env.NEXT_PUBLIC_SITE || "";
+export const NOTION = {
+  API_KEY: process.env.NOTION_API_KEY || "",
+  VERSION: "2025-09-03",
+};
