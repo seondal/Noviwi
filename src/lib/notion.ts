@@ -31,8 +31,11 @@ export async function getNotionVideoData(pageId: string) {
       console.error(page);
       return 404;
     }
+    const videoUrl = videoFile.file.url;
 
-    return { status, videoUrl: videoFile.file.url };
+    console.log(videoUrl);
+
+    return { status, videoUrl };
   } catch (error: any) {
     console.error("Notion API error:", error);
     return 500;
