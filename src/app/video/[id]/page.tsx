@@ -1,4 +1,5 @@
-import { getNotionVideoData } from "@/lib/notion";
+import { SITE } from "@/constants/env";
+import { ResponseI } from "@/interface/type";
 
 interface OptionsT {
   autoPlay: boolean;
@@ -59,9 +60,9 @@ export default async function Page({
     );
   }
 
-  const res = await getNotionVideoData(id);
+  const res: ResponseI = await (await fetch(SITE + "/api/" + id)).json();
 
-  if (res === 500 || res === 404) {
+  if (typeof res === "number") {
     console.error("Failed to fetch Notion data:", res);
     return (
       <a href="/">
