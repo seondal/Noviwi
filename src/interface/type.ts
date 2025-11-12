@@ -1,6 +1,8 @@
+export interface VideoI {
+  status: string | null;
+  videoUrl: string;
+}
+
 export type ResponseI =
-  | number
-  | {
-      status: string | undefined;
-      videoUrl: string;
-    };
+  | { success: true; data: VideoI }
+  | { success: false; error: string };
