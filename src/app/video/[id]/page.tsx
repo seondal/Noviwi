@@ -1,4 +1,5 @@
-import { getNotionVideoData } from "@/lib/notion";
+import { SITE } from "@/constants/env";
+import { ResponseI } from "@/interface/type";
 
 interface OptionsT {
   autoPlay: boolean;
@@ -59,9 +60,11 @@ export default async function Page({
     );
   }
 
-  const res = await getNotionVideoData(id);
+  const res: ResponseI = await (
+    await fetch(`${SITE}/api/${id}`, { cache: "no-store" })
+  ).json();
 
-  if (res === 500 || res === 404) {
+  if (!res.success) {
     console.error("Failed to fetch Notion data:", res);
     return (
       <a href="/">
@@ -70,20 +73,21 @@ export default async function Page({
     );
   }
 
-  if (res.status !== "deployed") {
+  const data = res.data;
+
+  if (data.status !== "deployed")
     return (
       <a href="/">
         <VideoComponent videoUrl="/assets/noviwi.mp4" options={options} />
       </a>
     );
-  }
 
-  const videoUrl = res.videoUrl;
   if (options.controls)
-    return <VideoComponent videoUrl={videoUrl} options={options} />;
+    return <VideoComponent videoUrl={data.videoUrl} options={options} />;
+
   return (
     <a href="/" target="_blank">
-      <VideoComponent videoUrl={videoUrl} options={options} />
+      <VideoComponent videoUrl={data.videoUrl} options={options} />
     </a>
   );
 }
